@@ -82,39 +82,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun logggedBottomNavigation() {
-//        val headerView: View = navigationView.getHeaderView(0)
-//        val emailNavbar = headerView.findViewById<TextView>(R.id.emailNavbar)
-//        emailNavbar.text = email
         bottomNavigationView.menu.clear()
         bottomNavigationView.inflateMenu(R.menu.bottom_logged_user_menu)
-//        bottomNavigationView.getMenu().add(R.id.navigation_home)
-//        bottomNavigationView.getMenu().add(R.id.navigation_profile)
-//        bottomNavigationView.getMenu().add(R.id.navigation_find_exercices)
-//        bottomNavigationView.getMenu().add(R.id.navigation_in_progress_exercices)
-//        bottomNavigationView.getMenu().add(R.id.navigation_statistics)
-////        bottomNavigationView.getMenu().findItem(R.id.navigation_login).setVisible(false)
-////        bottomNavigationView.getMenu().findItem(R.id.navigation_register).setVisible(false)
-//        bottomNavigationView.getMenu().removeItem(R.id.navigation_login)
-//        bottomNavigationView.getMenu().removeItem(R.id.navigation_register)
     }
 
     fun unlogggedBottomNavigation() {
-//        val headerView: View = navigationView.getHeaderView(0)
-//        val emailNavbar = headerView.findViewById<TextView>(R.id.emailNavbar)
-//        emailNavbar.text = ""
         bottomNavigationView.menu.clear()
         bottomNavigationView.inflateMenu(R.menu.bottom_unlogged_user_menu)
-//        bottomNavigationView.getMenu().add(R.id.navigation_home)
-////        bottomNavigationView.getMenu().findItem(R.id.navigation_profile).setVisible(false)
-////        bottomNavigationView.getMenu().findItem(R.id.navigation_statistics).setVisible(false)
-////        bottomNavigationView.getMenu().findItem(R.id.navigation_find_exercices).setVisible(false)
-////        bottomNavigationView.getMenu().findItem(R.id.navigation_in_progress_exercices).setVisible(false)
-//        bottomNavigationView.getMenu().add(R.id.navigation_login)
-//        bottomNavigationView.getMenu().add(R.id.navigation_register)
-//
-//        bottomNavigationView.getMenu().removeItem(R.id.navigation_profile)
-//        bottomNavigationView.getMenu().removeItem(R.id.navigation_statistics)
-//        bottomNavigationView.getMenu().removeItem(R.id.navigation_find_exercices)
-//        bottomNavigationView.getMenu().removeItem(R.id.navigation_in_progress_exercices)
     }
 }
