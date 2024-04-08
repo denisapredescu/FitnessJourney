@@ -6,16 +6,6 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_login"
-        android:icon="@drawable/ic_login"
-        android:title="Login" />
-
-    <item
-        android:id="@+id/navigation_register"
-        android:icon="@drawable/ic_register"
-        android:title="Register" />
-
-    <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/baseline_account_circle_24"
         android:title="Profile" />
