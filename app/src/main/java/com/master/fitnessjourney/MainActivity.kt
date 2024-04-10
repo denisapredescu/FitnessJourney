@@ -3,14 +3,16 @@ package com.master.fitnessjourney
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import android.widget.TextView
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.master.fitnessjourney.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
     lateinit var sharedPreferences: SharedPreferences
+    lateinit var optionMenu: Menu
+    var shouldShowOptionsMenu: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,12 +40,12 @@ class MainActivity : AppCompatActivity() {
             unlogggedBottomNavigation();
         } else {
             logggedBottomNavigation();
+            toggleOptionsMenuVisibility(true)
         }
 
         bottomNavigationView.setOnNavigationItemSelectedListener {item ->
             when(item.itemId) {
                 R.id.navigation_home -> {
-
                     navController.navigate(R.id.navigation_home)
                     true
                 }
@@ -89,5 +93,33 @@ class MainActivity : AppCompatActivity() {
     fun unlogggedBottomNavigation() {
         bottomNavigationView.menu.clear()
         bottomNavigationView.inflateMenu(R.menu.bottom_unlogged_user_menu)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        if(shouldShowOptionsMenu) {
+            menuInflater.inflate(R.menu.context_menu, menu);
+            return super.onCreateOptionsMenu(menu)
+        }
+        return false
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.option_menu_profile -> {
+                navController.navigate(R.id.navigation_profile)
+                true
+            }
+            R.id.option_menu_exit -> {
+                toggleOptionsMenuVisibility(false)
+                navController.navigate(R.id.navigation_login)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    fun toggleOptionsMenuVisibility(shouldShow: Boolean) {
+        shouldShowOptionsMenu = shouldShow
+        invalidateOptionsMenu() // This will force recreate the options menu
     }
 }
