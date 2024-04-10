@@ -5,11 +5,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -20,7 +17,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
     lateinit var sharedPreferences: SharedPreferences
-    lateinit var optionMenu: Menu
     var shouldShowOptionsMenu: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         if (sharedPreferences.getString("email", "").equals("")) {  // user not logged
             unlogggedBottomNavigation();
+            toggleOptionsMenuVisibility(false)
         } else {
             logggedBottomNavigation();
             toggleOptionsMenuVisibility(true)
@@ -60,10 +57,10 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
-                R.id.navigation_profile -> {
-                    navController.navigate(R.id.navigation_profile)
-                    true
-                }
+//                R.id.navigation_profile -> {
+//                    navController.navigate(R.id.navigation_profile)
+//                    true
+//                }
 
                 R.id.navigation_find_exercices -> {
                     navController.navigate(R.id.navigation_find_exercices)
@@ -97,7 +94,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         if(shouldShowOptionsMenu) {
-            menuInflater.inflate(R.menu.context_menu, menu);
+            menuInflater.inflate(R.menu.options_menu, menu);
             return super.onCreateOptionsMenu(menu)
         }
         return false
@@ -110,7 +107,9 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.option_menu_exit -> {
+                sharedPreferences.edit().putString("email", "").apply()
                 toggleOptionsMenuVisibility(false)
+                unlogggedBottomNavigation()
                 navController.navigate(R.id.navigation_login)
                 true
             }
