@@ -42,6 +42,10 @@ plugins {
         buildFeatures {
             buildConfig = true
         }
+        kapt {
+            correctErrorTypes = true
+            useBuildCache = true
+        }
     }
 
     dependencies {
@@ -64,7 +68,8 @@ plugins {
         implementation("com.android.volley:volley:1.2.1")
         implementation("com.google.code.gson:gson:2.10.1")
         implementation("androidx.room:room-runtime:$room_version")
-        annotationProcessor("androidx.room:room-compiler:$room_version")
+        //annotationProcessor("androidx.room:room-compiler:$room_version")
+        kapt("androidx.room:room-compiler:$room_version")
         implementation("androidx.room:room-ktx:$room_version")
 
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
