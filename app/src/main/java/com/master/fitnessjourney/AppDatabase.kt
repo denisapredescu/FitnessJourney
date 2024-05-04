@@ -15,7 +15,7 @@ import com.master.fitnessjourney.entities.Progress
     ExerciceProgress::class,
     Progress::class
     ],
-    version = 2
+    version = 3
 )
 @TypeConverters(RoomConvertors::class)
 abstract class AppDatabase: RoomDatabase() {

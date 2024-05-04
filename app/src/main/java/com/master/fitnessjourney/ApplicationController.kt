@@ -19,7 +19,7 @@ class ApplicationController: Application() {
             AppDatabase::class.java,
             "Fitness_DB"
         )
-           // .fallbackToDestructiveMigration()
+            .fallbackToDestructiveMigration()
             .build()
     }
 }

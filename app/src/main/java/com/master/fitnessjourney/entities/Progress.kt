@@ -10,7 +10,7 @@ data class Progress(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val date: Date,
-    val status: Boolean,
+//    val status: Boolean,
     @ColumnInfo("email_user")
     val emailUser: String
 )
