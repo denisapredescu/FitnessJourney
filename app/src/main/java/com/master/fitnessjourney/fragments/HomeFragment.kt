@@ -11,6 +11,7 @@ import com.master.fitnessjourney.entities.Exercice
 import com.master.fitnessjourney.entities.TypeExercicesEnum
 import com.master.fitnessjourney.helpers.extensions.logErrorMessage
 import com.master.fitnessjourney.repository.ExercicesRepository
+import org.jetbrains.annotations.Async.Execute
 
 class HomeFragment : Fragment() {
     override fun onCreateView(
@@ -24,7 +25,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val exercice = Exercice(
-            id = 1,
+
             genre = "Female",
             name = "Exc1",
             time = 30,
@@ -33,6 +34,10 @@ class HomeFragment : Fragment() {
             type = TypeExercicesEnum.ARMS
         )
          insertExercices(exercice)
+
+        ExercicesRepository.getExcById(3)
+        ExercicesRepository.getAllExcByTypeDiffGenre(TypeExercicesEnum.ARMS,DifficultyExercicesEnum.MEDIUM,"Male")
+
     }
     private fun insertExercices(model: Exercice) {
         ExercicesRepository.insertExercice(model)
