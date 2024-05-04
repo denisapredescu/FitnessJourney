@@ -12,6 +12,7 @@ class ApplicationController: Application() {
 
     override fun onCreate() {
         super.onCreate()
+
         instance = this
 
         appDatabase = Room.databaseBuilder(

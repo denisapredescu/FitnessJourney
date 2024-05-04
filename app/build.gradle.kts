@@ -20,6 +20,7 @@ plugins {
 
             testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
+//            buildConfigField("String", "BASE_URL", "\"https://fakestoreapi.com/\"")
             buildConfigField("String", "BASE_URL", "\"https://fakestoreapi.com/\"")
         }
 
@@ -49,7 +50,7 @@ plugins {
     }
 
     dependencies {
-        implementation(libs.firebase.firestore.ktx)
+//        implementation(libs.firebase.firestore.ktx)
         val nav_version = "2.7.7"
         val room_version = "2.6.1"
 
@@ -72,10 +73,7 @@ plugins {
         kapt("androidx.room:room-compiler:$room_version")
         implementation("androidx.room:room-ktx:$room_version")
 
-        implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
+//        implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
 //        implementation("org.jetbrains.kotlinx:kotlinx-serialization:1.3.0")
-        implementation("com.google.android.material:material:1.11.0")
-
-
-
+//        implementation("com.google.android.material:material:1.11.0")
     }
