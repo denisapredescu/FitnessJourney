@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.android.volley.AuthFailureError
@@ -22,7 +23,9 @@ import com.android.volley.VolleyLog.TAG
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.material.textfield.TextInputLayout
+import com.master.fitnessjourney.BuildConfig
 import com.master.fitnessjourney.R
+import org.json.JSONObject
 import java.net.URL
 
 
@@ -187,10 +190,6 @@ class RegisterFragment : Fragment() {
 
     }
 
-//    private val textWatcher = object : TextWatcher {
-//
-//    }
-
     fun notTheSame(password: String, confirmPassword: String): Boolean {
         return password != confirmPassword
     }
@@ -204,43 +203,8 @@ class RegisterFragment : Fragment() {
         val emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$"
         return email.matches(emailRegex.toRegex())
     }
-//    fun signUp(): String? {
-//        val emailText = email.editText?.text.toString()
-//        val usernameText = username.editText?.text.toString()
-//        val passwordText = password.editText?.text.toString()
-//
-//        // Show a loading indicator or progress bar if needed
-//
-//        CoroutineScope(Dispatchers.IO).launch {
-//            try {
-//                val requestBody = "{\"email\":\"$emailText\",\"username\":\"$usernameText\",\"password\":\"$passwordText\"}"
-//                val url = URL("https://fakestoreapi.com/auth/signup")
-//                val connection = url.openConnection() as HttpURLConnection
-//                connection.requestMethod = "POST"
-//                connection.doOutput = true
-//                connection.outputStream.use { os ->
-//                    val input = requestBody.toByteArray(Charsets.UTF_8)
-//                    os.write(input, 0, input.size)
-//                }
-//
-//                if (connection.responseCode == HttpURLConnection.HTTP_OK) {
-//                    val responseString = connection.inputStream.bufferedReader().use { it.readText() }
-//                    // Process the response as needed
-//                    Toast.makeText(getActivity(), responseString, Toast.LENGTH_LONG).show();
-//                } else {
-//                    // Handle HTTP error response
-//                    Log.e("SignUp", "HTTP Error: ${connection.responseCode}")
-//                }
-//            } catch (e: Exception) {
-//                // Handle network or other exceptions
-//                Log.e("SignUp", "Error: ${e.message}")
-//            }
-//        }
-//
-//        return null
-//    }
 
-    fun signUp() { //String?//email: String, username: String, password: String): String? {
+    fun signUp() {
 //        val email = view?.findViewById<EditText>(R.id.email) ?: return
 //        val username = view?.findViewById<EditText>(R.id.username) ?: return
 //        val password = view?.findViewById<EditText>(R.id.password) ?: return
@@ -248,82 +212,140 @@ class RegisterFragment : Fragment() {
         val usernameText = username.editText?.text.toString()
         val passwordText = password.editText?.text.toString()
 
-        Toast.makeText(getActivity(), emailText, Toast.LENGTH_LONG).show();
+        val username: String
+        val password: String
+        val email: String
+        val phone: String
+        val firstname: String
+        val lastname: String
 
-        // Create sign-up request body
-        val requestBody =
-            "{\"email\":\"$emailText\"username\":\"$usernameText\"password\":\"$passwordText\"}"
 
-        //SignUpRequest(emailText, usernameText, passwordText)
-
-        // Serialize request body to JSON
-//        val jsonString = requestBody//Json.encodeToString(requestBody)
-
-        // Make POST request to sign-up endpoint
-//        val url = URL("https://fakestoreapi.com/auth/signup")
-
-//        val stringRequest = object : StringRequest(
-//            Method.POST,
-//            "https://fakestoreapi.com/auth/signup",
-//            { response ->
-////                "success".logErrorMessage()
-//                Toast.makeText(getActivity(),  response, Toast.LENGTH_LONG).show();
-//                signUpButton.isEnabled = false
-////                goToProducts()
-//            },
-//            {
-//                Toast.makeText(getActivity(), "That didn't work!", Toast.LENGTH_LONG).show();
-////                "That didn't work!".logErrorMessage()
-//            }
-//        ) {
-//            override fun getParams(): MutableMap<String, String> {
-//                val params: MutableMap<String, String> = HashMap()
-//                params["email"] = emailText
-//                params["username"] = usernameText
-//                params["password"] = passwordText
-//
-//                return params
-//            }
-//        }
-//        stringRequest.tag = "SRTAG"
-//        // Add the request to the RequestQueue.
-//        Volley.newRequestQueue(requireContext()).add(stringRequest)
-
-        val stringRequest: StringRequest =
-            object : StringRequest(Request.Method.POST, "https://fakestoreapi.com/auth/signup",
-                Response.Listener<String?> {
-                fun onResponse(response: String) {
-                    Toast.makeText(getActivity(),  response, Toast.LENGTH_LONG).show();
-                    signUpButton.isEnabled = false
-                    Log.d(TAG, response.toString())
-                }
-            },  Response.ErrorListener {
-                 fun onErrorResponse(error: VolleyError) {
-                    VolleyLog.d(TAG, "Error: " + error.message)
-                    Log.d(TAG, "" + error.message + "," + error.toString())
-                     Toast.makeText(activity, "That didn't work!", Toast.LENGTH_LONG).show();
-                }
-            }) {
-                override fun getParams(): Map<String, String>? {
-                    val params: MutableMap<String, String> = HashMap()
-                    params["email"] = emailText
-                    params["username"] = usernameText
-                    params["password"] = passwordText
-                    return params
-                }
-
-                @Throws(AuthFailureError::class)
-                override fun getHeaders(): Map<String, String> {
-                    val headers: MutableMap<String, String> = HashMap()
-                    headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-                    return headers
-                }
+        when (BuildConfig.DEBUG) {
+            true -> {
+                username = "johnd"
+                password = "Parola123!"
+                email="m38rmF\$"
+                phone="1-570-236-7033"
+                firstname="John"
+                lastname="Doe"
             }
 
-                stringRequest.tag = "SRTAG"
-        // Add the request to the RequestQueue.
+            false -> {
+                username = usernameText
+                password = passwordText
+                email = emailText
+                phone="1-570-236-7033"
+                firstname="John"
+                lastname="Doe"
+            }
+        }
+
+        val url = "${BuildConfig.BASE_URL}users"
+        val stringRequest = object : StringRequest(
+            Method.POST,
+            url,
+            { response ->
+                Log.d(TAG, response.toString())
+
+                Toast.makeText(activity,  "Signed up with success", Toast.LENGTH_LONG).show();
+                signUpButton.isEnabled = false
+            },
+            { error ->
+                Log.e(error.toString(), this.toString())
+
+                Toast.makeText(activity, "That didn't work!", Toast.LENGTH_LONG).show();
+                Toast.makeText(activity, "Error: " + error.message, Toast.LENGTH_LONG).show();
+            }
+        ) {
+            override fun getParams(): MutableMap<String, String> {
+                val params: MutableMap<String, String> = HashMap()
+
+                // Fill in the simple fields directly
+                params["username"] = username
+                params["password"] = password
+                params["email"] = email
+                params["phone"] = phone
+
+                // Create nested JSON objects for name and address
+                val nameObject = JSONObject()
+                nameObject.put("firstname", firstname)
+                nameObject.put("lastname", lastname)
+
+//                val addressObject = JSONObject()
+//                addressObject.put("city", "kilcoole")
+//                addressObject.put("street", "7835 new road")
+//                addressObject.put("number", 3)
+//                addressObject.put("zipcode", "12926-3874")
+//
+//                val geolocationObject = JSONObject()
+//                geolocationObject.put("lat", "-37.3159")
+//                geolocationObject.put("long", "81.1496")
+//
+//                addressObject.put("geolocation", geolocationObject)
+
+                // Put the nested JSON objects into the params map as strings
+                params["name"] = nameObject.toString()
+//                params["address"] = addressObject.toString()
+
+                return params
+            }
+        }
+
+        stringRequest.tag = "SRTAG"
+
         Volley.newRequestQueue(requireContext()).add(stringRequest)
+
+
+//        val stringRequest: StringRequest =
+//            object : StringRequest(Request.Method.POST, "https://fakestoreapi.com/users",
+//                Response.Listener<String?> {
+//                fun onResponse(response: String) {
+//                    Toast.makeText(getActivity(),  response, Toast.LENGTH_LONG).show();
+//                    signUpButton.isEnabled = false
+//                    Log.d(TAG, response.toString())
+//                }
+//            },  Response.ErrorListener {
+//                 fun onErrorResponse(error: VolleyError) {
+//                    VolleyLog.d(TAG, "Error: " + error.message)
+//                    Log.d(TAG, "" + error.message + "," + error.toString())
+//                     Toast.makeText(activity, "That didn't work!", Toast.LENGTH_LONG).show();
+//                }
+//            }) {
+//                override fun getParams(): Map<String, String>? {
+//                    val params: MutableMap<String, String> = HashMap()
+//                    params["email"] = emailText
+//                    params["username"] = usernameText
+//                    params["password"] = passwordText
+//                    params["name"] = "{\n" +
+//                            "                            firstname:'John',\n" +
+//                            "                            lastname:'Doe'\n" +
+//                            "                        }"
+//                    params["address"] = "{\n" +
+//                            "                            city:'kilcoole',\n" +
+//                            "                            street:'7835 new road',\n" +
+//                            "                            number:3,\n" +
+//                            "                            zipcode:'12926-3874',\n" +
+//                            "                            geolocation:{\n" +
+//                            "                                lat:'-37.3159',\n" +
+//                            "                                long:'81.1496'\n" +
+//                            "                            }\n" +
+//                            "                        }"
+//                    params["phone"] = "1-570-236-7033"
+//                    return params
+//                }
+//
+//                @Throws(AuthFailureError::class)
+//                override fun getHeaders(): Map<String, String> {
+//                    val headers: MutableMap<String, String> = HashMap()
+//                    headers["Content-Type"] = "application/x-www-form-urlencoded"
+//
+//                    return headers
+//                }
+//            }
+//
+//                stringRequest.tag = "SRTAG"
+//        // Add the request to the RequestQueue.
+//        Volley.newRequestQueue(requireContext()).add(stringRequest)
     }
 
 //    fun signUp() { //String?//email: String, username: String, password: String): String? {
