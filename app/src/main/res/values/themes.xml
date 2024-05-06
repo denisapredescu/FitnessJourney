@@ -16,6 +16,6 @@
     </style>
 
     <style name="Threedotcolor" parent="Widget.AppCompat.Light.ActionButton.Overflow">
-        <item name="tint">#FE0056</item>
+        <item name="tint">@color/white</item>
     </style>
 </resources>
