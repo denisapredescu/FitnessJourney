@@ -38,13 +38,11 @@ class MainActivity : AppCompatActivity() {
             bottomNavigationView, navController
         )
 
-        if (sharedPreferences.getString("email", "").equals("")) {  // user not logged
+        if (sharedPreferences.getString("email", "").equals("")) {
             unlogggedBottomNavigation();
-//            toggleOptionsMenuVisibility(false)
 
         } else {
             logggedBottomNavigation();
-//            toggleOptionsMenuVisibility(true)
         }
 
         bottomNavigationView.setOnNavigationItemSelectedListener {item ->
@@ -86,14 +84,10 @@ class MainActivity : AppCompatActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onLogInOutEvent(event: LogInOutEvent) {
-        if (event.isLoggedIn) {
+        if (event.isLoggedIn)
             logggedBottomNavigation()
-
-        }
-        else {
+        else
             unlogggedBottomNavigation()
-
-        }
     }
 
     fun logggedBottomNavigation() {
@@ -109,21 +103,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        optionsMenu = menu
         if(shouldShowOptionsMenu) {
             menuInflater.inflate(R.menu.options_menu, menu);
             return super.onCreateOptionsMenu(menu)
         }
         return false
     }
-
-//    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-//        if(shouldShowOptionsMenu) {
-//            menuInflater.inflate(R.menu.options_menu, menu);
-//            return super.onCreateOptionsMenu(menu)
-//        }
-//        return false
-//    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -133,8 +118,6 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.option_menu_exit -> {
                 sharedPreferences.edit().putString("email", "").apply()
-//                toggleOptionsMenuVisibility(false)
-//                unlogggedBottomNavigation()
                 EventBus.getDefault().post(LogInOutEvent(isLoggedIn = false))
                 navController.navigate(R.id.navigation_login)
                 true
@@ -147,18 +130,6 @@ class MainActivity : AppCompatActivity() {
         shouldShowOptionsMenu = shouldShow
         invalidateOptionsMenu() // This will force recreate the options menu
     }
-
-//    override fun onLoginSuccess() {
-//        toggleOptionsMenuVisibility(true)
-//        logggedBottomNavigation()
-//        onPrepareOptionsMenu(optionsMenu);
-//    }
-//
-//    fun tryLogin() {
-//        toggleOptionsMenuVisibility(true)
-//        logggedBottomNavigation()
-//        onPrepareOptionsMenu(optionsMenu);
-//    }
 
     public override fun onStart() {
         super.onStart()

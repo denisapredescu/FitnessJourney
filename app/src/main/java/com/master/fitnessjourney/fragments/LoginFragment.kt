@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import androidx.core.app.ActivityCompat.invalidateOptionsMenu
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.android.volley.toolbox.StringRequest
@@ -23,24 +22,17 @@ import com.master.fitnessjourney.R
 import com.master.fitnessjourney.helpers.LogInOutEvent
 import org.greenrobot.eventbus.EventBus
 
-//interface OnLoginSuccessListener {
-//    fun onLoginSuccess()
-//}
-
 class LoginFragment : Fragment() {
 
     lateinit var sharedPreferences: SharedPreferences
-//    private var loginSuccessListener: OnLoginSuccessListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         sharedPreferences =
             (activity?.getSharedPreferences("CONTEXT_DETAILS", Context.MODE_PRIVATE))!!
-
         return inflater.inflate(R.layout.fragment_login, container, false )
     }
 
@@ -65,7 +57,6 @@ class LoginFragment : Fragment() {
                 username = "mor_2314"
                 password = "83r5^_"
             }
-
             false -> {
                 username = editUsername.toString().trim()
                 password = editPassword.toString().trim()
@@ -87,8 +78,7 @@ class LoginFragment : Fragment() {
 
                 EventBus.getDefault().post(LogInOutEvent(isLoggedIn = true))
 
-                val action = LoginFragmentDirections.actionNavigationLoginToNavigationHome()
-                findNavController().navigate(action)
+                goToHome()
             },
             { error->
                 Log.e("That didn't work!", this.toString())
@@ -107,24 +97,11 @@ class LoginFragment : Fragment() {
         }
 
         stringRequest.tag = "SRTAG"
-
         Volley.newRequestQueue(requireContext()).add(stringRequest)
-
-//        VolleyRequestQueue.addToRequestQueue(stringRequest)
     }
 
     private fun goToHome() {
-        val fragment = HomeFragment()
-        val transaction = fragmentManager?.beginTransaction()
-        transaction?.replace(R.id.action_navigation_login_to_navigation_home, fragment)?.commit()
-    }
-
-    private fun goToActivity() {
-        val i = Intent(
-            activity,
-            MainActivity::class.java
-        )
-        startActivity(i)
-        (activity as Activity?)!!.overridePendingTransition(0, 0)
+        val action = LoginFragmentDirections.actionNavigationLoginToNavigationHome()
+        findNavController().navigate(action)
     }
 }
