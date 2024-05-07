@@ -4,7 +4,6 @@ plugins {
 
     id("androidx.navigation.safeargs.kotlin")
     id("org.jetbrains.kotlin.kapt")
-//    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
     android {
@@ -20,7 +19,6 @@ plugins {
 
             testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-//            buildConfigField("String", "BASE_URL", "\"https://fakestoreapi.com/\"")
             buildConfigField("String", "BASE_URL", "\"https://fakestoreapi.com/\"")
         }
 
@@ -46,6 +44,7 @@ plugins {
         kapt {
             correctErrorTypes = true
             useBuildCache = true
+
         }
     }
 
@@ -76,4 +75,8 @@ plugins {
 //        implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
 //        implementation("org.jetbrains.kotlinx:kotlinx-serialization:1.3.0")
 //        implementation("com.google.android.material:material:1.11.0")
+
+//        implementation(libs.eventbus)
+//                kapt("org.greenrobot:eventbus-annotation-processor:3.0.1")
+        implementation("org.greenrobot:eventbus:3.3.1")
     }
