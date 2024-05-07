@@ -7,6 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="editable_field_color">#CFCFCF</color>
+
+    <color name="night_primary">#E6C45D</color>
+    <color name="night_primary_variant">#A58832</color>
+    <color name="light_primary">#DD880B</color>
+    <color name="light_primary_variant">#A36304</color>
+
+    <color name="light_fields_container">#CFCFCF</color>
+    <color name="night_fields_container">#4D504D</color>
     <color name="helper_text_color">#4D504D</color>
 </resources>
