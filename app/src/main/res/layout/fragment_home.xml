@@ -29,7 +29,8 @@
             android:id="@+id/themeSwitch"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"/>
+            android:checked="false"
+           />
 
         <!-- Right Icon -->
         <ImageView

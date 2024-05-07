@@ -22,6 +22,8 @@ class HomeFragment : Fragment() {
     private lateinit var themePreferences: Theme
     lateinit var themeSwitch: SwitchMaterial
     lateinit var sharedPreferences: SharedPreferences
+//    lateinit var isChecked: Boolean
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,9 +50,10 @@ class HomeFragment : Fragment() {
 
         themeSwitch = view.findViewById<SwitchMaterial>(R.id.themeSwitch)
         themePreferences = Theme(requireContext())
-        updateSwitchDrawable(themePreferences.isDarkTheme(), themeSwitch)
+        themeSwitch.isChecked = themePreferences.isDarkTheme()
+        loadSwitchTheme()
         themeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            handleThemeSwitch(themeSwitch, isChecked)
+            handleThemeSwitch(isChecked)
         }
     }
     private fun insertExercices(model: Exercice) {
@@ -61,22 +64,13 @@ class HomeFragment : Fragment() {
         ExercicesRepository.getAllExc()
     }
 
-    private fun handleThemeSwitch(switch: SwitchMaterial, isChecked: Boolean) {
+    private fun handleThemeSwitch(isChecked: Boolean) {
         themePreferences.saveTheme(isChecked)
-        updateSwitchDrawable(isChecked, switch)
+        loadSwitchTheme()
     }
 
-    private fun updateSwitchDrawable(isChecked: Boolean, switch: SwitchMaterial) {
-        switch.apply {
-            this.isChecked = isChecked
-//            setButtonDrawable(
-//                when (isChecked) {
-//                    true -> R.drawable.ic_dark
-//                    false -> R.drawable.ic_light
-//                }
-//            )
-
-        }
+    private fun loadSwitchTheme() {
+        themePreferences.loadTheme()
     }
 
 }
