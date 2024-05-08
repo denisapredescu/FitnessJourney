@@ -8,42 +8,46 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.master.fitnessjourney.fragments.HomeFragment"
-        android:label="@string/title_home"
+        android:label="@string/navigation_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_login"
         android:name="com.master.fitnessjourney.fragments.LoginFragment"
-        android:label="Login"
-        tools:layout="@layout/fragment_login" />
+        android:label="@string/navigation_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_navigation_login_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_register"
         android:name="com.master.fitnessjourney.fragments.RegisterFragment"
-        android:label="Register"
+        android:label="@string/navigation_register"
         tools:layout="@layout/fragment_register" />
-
-    <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.master.fitnessjourney.fragments.ProfileFragment"
-        android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/navigation_find_exercices"
         android:name="com.master.fitnessjourney.fragments.FindExercicesFragment"
-        android:label="Find exercices"
+        android:label="@string/navigation_find_exercises"
         tools:layout="@layout/fragment_find_exercices" />
 
     <fragment
         android:id="@+id/navigation_in_progress_exercices"
         android:name="com.master.fitnessjourney.fragments.InProgressExercicesFragment"
-        android:label="In progress exercices"
+        android:label="@string/navigation_progress"
         tools:layout="@layout/fragment_in_progress_exercices" />
 
     <fragment
         android:id="@+id/navigation_statistics"
         android:name="com.master.fitnessjourney.fragments.StatisticsFragment"
-        android:label="Statistics"
+        android:label="@string/navigation_statistics"
         tools:layout="@layout/fragment_statistics" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.master.fitnessjourney.fragments.ProfileFragment"
+        android:label="@string/options_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

@@ -10,6 +10,11 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
+//import com.master.fitnessjourney.fragments.OnLoginSuccessListener
+import com.master.fitnessjourney.helpers.LogInOutEvent
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var navHostFragment: NavHostFragment
     lateinit var navController: NavController
     lateinit var sharedPreferences: SharedPreferences
+    lateinit var optionsMenu: Menu
     var shouldShowOptionsMenu: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,12 +38,11 @@ class MainActivity : AppCompatActivity() {
             bottomNavigationView, navController
         )
 
-        if (sharedPreferences.getString("email", "").equals("")) {  // user not logged
+        if (sharedPreferences.getString("email", "").equals("")) {
             unlogggedBottomNavigation();
-            toggleOptionsMenuVisibility(false)
+
         } else {
             logggedBottomNavigation();
-            toggleOptionsMenuVisibility(true)
         }
 
         bottomNavigationView.setOnNavigationItemSelectedListener {item ->
@@ -56,11 +61,6 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.navigation_register)
                     true
                 }
-
-//                R.id.navigation_profile -> {
-//                    navController.navigate(R.id.navigation_profile)
-//                    true
-//                }
 
                 R.id.navigation_find_exercices -> {
                     navController.navigate(R.id.navigation_find_exercices)
@@ -82,14 +82,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onLogInOutEvent(event: LogInOutEvent) {
+        if (event.isLoggedIn)
+            logggedBottomNavigation()
+        else
+            unlogggedBottomNavigation()
+    }
+
     fun logggedBottomNavigation() {
         bottomNavigationView.menu.clear()
         bottomNavigationView.inflateMenu(R.menu.bottom_logged_user_menu)
+        toggleOptionsMenuVisibility(true)
     }
 
     fun unlogggedBottomNavigation() {
         bottomNavigationView.menu.clear()
         bottomNavigationView.inflateMenu(R.menu.bottom_unlogged_user_menu)
+        toggleOptionsMenuVisibility(false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -108,8 +118,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.option_menu_exit -> {
                 sharedPreferences.edit().putString("email", "").apply()
-                toggleOptionsMenuVisibility(false)
-                unlogggedBottomNavigation()
+                EventBus.getDefault().post(LogInOutEvent(isLoggedIn = false))
                 navController.navigate(R.id.navigation_login)
                 true
             }
@@ -120,5 +129,15 @@ class MainActivity : AppCompatActivity() {
     fun toggleOptionsMenuVisibility(shouldShow: Boolean) {
         shouldShowOptionsMenu = shouldShow
         invalidateOptionsMenu() // This will force recreate the options menu
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    public override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
     }
 }

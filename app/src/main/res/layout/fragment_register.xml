@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -27,14 +26,14 @@
             android:padding="@dimen/default_padding"
             app:endIconMode="clear_text"
             app:helperText="*Required"
-            app:helperTextTextColor="#4D504D"
+            app:helperTextTextColor="@color/helper_text_color"
             app:startIconDrawable="@drawable/ic_home_black_24dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
-                android:paddingStart="40dp" />
+                android:hint="@string/register_hint_email"
+                android:paddingStart="@dimen/icon_position_in_the_left_of_inputText" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -44,14 +43,14 @@
             android:padding="@dimen/default_padding"
             app:endIconMode="clear_text"
             app:helperText="*Required"
-            app:helperTextTextColor="#4D504D"
+            app:helperTextTextColor="@color/helper_text_color"
             app:startIconDrawable="@drawable/baseline_person_24">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username"
-                android:paddingStart="40dp" />
+                android:hint="@string/register_hint_username"
+                android:paddingStart="@dimen/icon_position_in_the_left_of_inputText" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -63,16 +62,16 @@
             app:counterEnabled="true"
             app:endIconMode="password_toggle"
             app:helperText="*Required"
-            app:helperTextTextColor="#4D504D"
+            app:helperTextTextColor="@color/helper_text_color"
             app:layout_constraintTop_toBottomOf="@+id/email"
             app:startIconDrawable="@drawable/baseline_lock">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
+                android:hint="@string/register_hint_password"
                 android:inputType="textPassword"
-                android:paddingStart="40dp" />
+                android:paddingStart="@dimen/icon_position_in_the_left_of_inputText" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -83,16 +82,16 @@
             app:counterEnabled="true"
             app:endIconMode="password_toggle"
             app:helperText="*Required"
-            app:helperTextTextColor="#4D504D"
+            app:helperTextTextColor="@color/helper_text_color"
             app:layout_constraintTop_toBottomOf="@+id/password"
             app:startIconDrawable="@drawable/baseline_lock">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Confirm Password"
+                android:hint="@string/register_hint_confirm_password"
                 android:inputType="textPassword"
-                android:paddingStart="40dp" />
+                android:paddingStart="@dimen/icon_position_in_the_left_of_inputText" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
@@ -102,7 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
-        android:text="Sign up"
+        android:text="@string/label_sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

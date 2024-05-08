@@ -1,41 +1,50 @@
 package com.master.fitnessjourney.fragments
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.master.fitnessjourney.BuildConfig
-
+import androidx.navigation.fragment.findNavController
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.google.android.material.textfield.TextInputLayout
+import com.master.fitnessjourney.BuildConfig
 import com.master.fitnessjourney.R
+import com.master.fitnessjourney.helpers.LogInOutEvent
+import org.greenrobot.eventbus.EventBus
 
 class LoginFragment : Fragment() {
+
+    lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        sharedPreferences =
+            (activity?.getSharedPreferences("CONTEXT_DETAILS", Context.MODE_PRIVATE))!!
+        return inflater.inflate(R.layout.fragment_login, container, false )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//
-        val doLoginBtn = view.findViewById<Button>(R.id.btn_login)
+
+        val doLoginBtn = view.findViewById<Button>(R.id.button_login)
         doLoginBtn.setOnClickListener {
             doLogin()
         }
     }
 
     private fun doLogin() {
-        val editUsername = view?.findViewById<EditText>(R.id.et_username) ?: return
-        val editPassword = view?.findViewById<EditText>(R.id.et_password) ?: return
+        val editUsername = view?.findViewById<TextInputLayout>(R.id.et_username) ?: return
+        val editPassword = view?.findViewById<TextInputLayout>(R.id.et_password) ?: return
 
         val username: String
         val password: String
@@ -45,14 +54,13 @@ class LoginFragment : Fragment() {
                 username = "mor_2314"
                 password = "83r5^_"
             }
-
             false -> {
-                username = editUsername.text.toString().trim()
-                password = editPassword.text.toString().trim()
+                username = editUsername.toString().trim()
+                password = editPassword.toString().trim()
             }
         }
 
-        val url = "${com.master.fitnessjourney.BuildConfig.BASE_URL}auth/login"
+        val url = "${BuildConfig.BASE_URL}auth/login"
 
         val stringRequest = object : StringRequest(
             Method.POST,
@@ -61,6 +69,13 @@ class LoginFragment : Fragment() {
                 Log.e("success", this.toString())
 
                 Toast.makeText(activity,  "Signed in with success", Toast.LENGTH_LONG).show();
+
+                sharedPreferences.edit().putString("email", "set email").apply()
+                sharedPreferences.edit().putString("token", response).apply()
+
+                EventBus.getDefault().post(LogInOutEvent(isLoggedIn = true))
+
+                goToHome()
             },
             { error->
                 Log.e("That didn't work!", this.toString())
@@ -79,9 +94,11 @@ class LoginFragment : Fragment() {
         }
 
         stringRequest.tag = "SRTAG"
-
         Volley.newRequestQueue(requireContext()).add(stringRequest)
+    }
 
-//        VolleyRequestQueue.addToRequestQueue(stringRequest)
+    private fun goToHome() {
+        val action = LoginFragmentDirections.actionNavigationLoginToNavigationHome()
+        findNavController().navigate(action)
     }
 }
