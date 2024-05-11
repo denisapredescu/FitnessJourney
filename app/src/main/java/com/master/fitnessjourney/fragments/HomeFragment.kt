@@ -11,6 +11,7 @@ import com.google.android.material.switchmaterial.SwitchMaterial
 import com.master.fitnessjourney.R
 import com.master.fitnessjourney.entities.DifficultyExercicesEnum
 import com.master.fitnessjourney.entities.Exercice
+import com.master.fitnessjourney.entities.MuscleExercicesEnum
 import com.master.fitnessjourney.entities.TypeExercicesEnum
 import com.master.fitnessjourney.helpers.Theme
 import com.master.fitnessjourney.helpers.extensions.logErrorMessage
@@ -36,17 +37,17 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val exercice = Exercice(
 
-            genre = "Female",
-            name = "Exc1",
-            time = 30,
-            description = "Description",
-            difficulty = DifficultyExercicesEnum.MEDIUM,
-            type = TypeExercicesEnum.ARMS
+        name = "Exc2",
+        type = TypeExercicesEnum.CARDIO,
+        muscle = MuscleExercicesEnum.NECK,
+        equipment = "Equipment2",
+        difficulty = DifficultyExercicesEnum.EXPERT,
+        instructions = "Instruction2"
         )
-         insertExercices(exercice)
+         //insertExercices(exercice)
 
-        ExercicesRepository.getExcById(3)
-        ExercicesRepository.getAllExcByTypeDiffGenre(TypeExercicesEnum.ARMS,DifficultyExercicesEnum.MEDIUM,"Male")
+        ExercicesRepository.getExcById(1)
+        ExercicesRepository.getAllExcByTypeDiffMuscle(TypeExercicesEnum.CARDIO,DifficultyExercicesEnum.EXPERT,MuscleExercicesEnum.LATS)
 
         themeSwitch = view.findViewById<SwitchMaterial>(R.id.themeSwitch)
         themePreferences = Theme(requireContext())
