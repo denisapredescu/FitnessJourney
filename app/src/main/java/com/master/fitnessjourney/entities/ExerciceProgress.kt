@@ -6,5 +6,5 @@ import androidx.room.Entity
 data class ExerciceProgress(
     val progressId: Int,
     val exerciceId: Int,
-    val status: Boolean
+    val status: Boolean = false
 )

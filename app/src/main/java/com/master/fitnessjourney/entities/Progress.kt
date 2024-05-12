@@ -9,8 +9,9 @@ import java.util.Date
 data class Progress(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val date: Date,
+    val date: Date = Date(),
 //    val status: Boolean,
-    @ColumnInfo("email_user")
-    val emailUser: String
-)
+    val username: String
+){
+    constructor(username: String) : this(0,Date(),username = username)
+}

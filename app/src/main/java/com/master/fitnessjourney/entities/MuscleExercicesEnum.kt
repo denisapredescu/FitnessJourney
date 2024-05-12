@@ -7,6 +7,8 @@ enum class MuscleExercicesEnum {
     BICEPS,
     CALVES,
     CHEST,
+    FOREARMS,
+    GLUTES,
     HAMSTRINGS,
     LATS,
     LOWER_BACK,
