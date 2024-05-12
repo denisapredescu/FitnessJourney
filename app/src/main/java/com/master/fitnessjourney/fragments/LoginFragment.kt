@@ -70,7 +70,7 @@ class LoginFragment : Fragment() {
 
                 Toast.makeText(activity,  "Signed in with success", Toast.LENGTH_LONG).show();
 
-                sharedPreferences.edit().putString("email", "set email").apply()
+                sharedPreferences.edit().putString("email", username).apply()
                 sharedPreferences.edit().putString("token", response).apply()
 
                 EventBus.getDefault().post(LogInOutEvent(isLoggedIn = true))

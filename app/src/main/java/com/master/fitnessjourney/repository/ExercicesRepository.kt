@@ -5,13 +5,16 @@ import com.master.fitnessjourney.entities.Exercice
 import com.master.fitnessjourney.entities.MuscleExercicesEnum
 import com.master.fitnessjourney.entities.TypeExercicesEnum
 import com.master.fitnessjourney.helpers.extensions.logErrorMessage
+import com.master.fitnessjourney.models.ExerciceModel
 import com.master.fitnessjourney.tasks.GetAllExcByTypeDiffMuscleTask
 import com.master.fitnessjourney.tasks.GetExcByIdTask
+import com.master.fitnessjourney.tasks.GetExcByPropertiesTask
 import com.master.fitnessjourney.tasks.GetExerciceTask
+import com.master.fitnessjourney.tasks.GetIdByNameTask
 import com.master.fitnessjourney.tasks.InsertExerciceTask
 
 object ExercicesRepository {//nu e un best practice...
-    fun insertExercice(model: Exercice, onSuccess : () -> Unit){
+    fun insertExercice(model: ExerciceModel, onSuccess : () -> Unit){
         InsertExerciceTask(onSuccess).execute(model)
     }
 
@@ -27,7 +30,23 @@ object ExercicesRepository {//nu e un best practice...
             }
         }.execute(id)
     }
+    fun getExcByProperties(ex: ExerciceModel,onSuccess: () -> Unit){
+        GetExcByPropertiesTask(ex){response ->
+            if (response == false)
+            {
+                insertExercice(ex,onSuccess)
+            }
 
+                //"exercice is: $response".logErrorMessage()
+
+        }.execute()
+    }
+
+    fun getIdByName(name:String){
+        GetIdByNameTask(name){
+
+        }.execute()
+    }
     fun getAllExcByTypeDiffMuscle(type: TypeExercicesEnum, difficulty: DifficultyExercicesEnum, muscle: MuscleExercicesEnum){
         GetAllExcByTypeDiffMuscleTask(type,difficulty,muscle){ exercices ->
             "listSucces: ${exercices.map { it.id }}".logErrorMessage()

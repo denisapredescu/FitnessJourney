@@ -10,6 +10,7 @@ import com.master.fitnessjourney.entities.Progress
 import com.master.fitnessjourney.models.ExerciceByDateModel
 import com.master.fitnessjourney.models.ExerciceInProgress
 import com.master.fitnessjourney.models.ProgressWithExercices
+import java.time.Year
 import java.util.Date
 
 @Dao
@@ -17,6 +18,9 @@ public interface ProgressDao {
 
     @Insert
     fun insertProgress(model: Progress)
+
+    @Query("SELECT COUNT(*) FROM progresses WHERE username = :username AND strftime('%d', datetime(date / 1000, 'unixepoch')) = :day AND strftime('%m',datetime(date / 1000, 'unixepoch')) = :month AND strftime('%Y', datetime(date / 1000, 'unixepoch')) = :year")
+    fun isProgressSetTodayUserLogged(username: String,day: String,month: String, year: String) : Int
 
     @Query("UPDATE exercices_progesses SET status= 1 WHERE exerciceId = :exerciceId AND progressId = :progressId")
     fun updateProgressStatus(exerciceId: Int, progressId: Int)
@@ -35,5 +39,12 @@ public interface ProgressDao {
             "JOIN progresses ON (progresses.id == exercices_progesses.progressId)" +
             "WHERE status = 1 AND date = :chooseDate")
     fun getDoneExercicesByDate(chooseDate: Date): List<ExerciceByDateModel>
+
+    @Query("SELECT id FROM progresses WHERE username = :username AND" +
+            " strftime('%d', datetime(date / 1000, 'unixepoch')) = :day AND" +
+            " strftime('%m',datetime(date / 1000, 'unixepoch')) = :month AND" +
+            " strftime('%Y', datetime(date / 1000, 'unixepoch')) = :year")
+    fun getIdByUserDate(username: String,day:String,month: String,year: String) :Int
+
 
 }

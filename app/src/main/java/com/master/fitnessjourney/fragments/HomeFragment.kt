@@ -15,6 +15,7 @@ import com.master.fitnessjourney.entities.MuscleExercicesEnum
 import com.master.fitnessjourney.entities.TypeExercicesEnum
 import com.master.fitnessjourney.helpers.Theme
 import com.master.fitnessjourney.helpers.extensions.logErrorMessage
+import com.master.fitnessjourney.models.ExerciceModel
 import com.master.fitnessjourney.repository.ExercicesRepository
 import org.jetbrains.annotations.Async.Execute
 
@@ -57,7 +58,7 @@ class HomeFragment : Fragment() {
             handleThemeSwitch(isChecked)
         }
     }
-    private fun insertExercices(model: Exercice) {
+    private fun insertExercices(model: ExerciceModel) {
         ExercicesRepository.insertExercice(model)
         {
             "exercice insert succes".logErrorMessage()

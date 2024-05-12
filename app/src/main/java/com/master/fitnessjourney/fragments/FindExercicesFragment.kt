@@ -1,5 +1,7 @@
 package com.master.fitnessjourney.fragments
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +12,7 @@ import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,29 +25,74 @@ import com.google.gson.reflect.TypeToken
 import com.master.fitnessjourney.R
 import com.master.fitnessjourney.adapters.ExerciceListAdaptor
 import com.master.fitnessjourney.entities.Exercice
+import com.master.fitnessjourney.entities.ExerciceProgress
 import com.master.fitnessjourney.entities.MuscleExercicesEnum
 import com.master.fitnessjourney.helpers.VolleyRequestQueue
 import com.master.fitnessjourney.helpers.extensions.logErrorMessage
 import com.master.fitnessjourney.models.ExerciceModel
+import com.master.fitnessjourney.repository.ExcProgressRepository
+import com.master.fitnessjourney.repository.ExercicesRepository
+import com.master.fitnessjourney.repository.ProgressRepository
+import com.master.fitnessjourney.tasks.GetExcByPropertiesTask
+import com.master.fitnessjourney.tasks.GetIdByNameTask
+import com.master.fitnessjourney.tasks.GetIdByUserDateTask
 
 class FindExercicesFragment : Fragment() {
     private val items = ArrayList<ExerciceModel>()
-    private val adapter = ExerciceListAdaptor(items)
+    private val adapter = ExerciceListAdaptor(items){ exercice ->
+        handleItemClick(exercice)
+    }
+    lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        sharedPreferences =
+            (activity?.getSharedPreferences("CONTEXT_DETAILS", Context.MODE_PRIVATE))!!
         return inflater.inflate(R.layout.fragment_find_exercices, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val username = sharedPreferences.getString("email", null)
+        if (username != null) {
+            ProgressRepository.isProgressTodayUserLogged(username){
+                Toast.makeText(requireContext(), "Progress created for today", Toast.LENGTH_SHORT).show()
+            }
+        }
         val doShowBtn = view.findViewById<Button>(R.id.button_filter)
         doShowBtn.setOnClickListener { doShow() }
         setupRecyclerView()
         getExercices("","","")
+
+    }
+    private fun handleItemClick(exercise: ExerciceModel) {
+        val username = sharedPreferences.getString("email", null)
+//        println("email: $username")
+        println("Clicked Exercise:")
+        println("Name: ${exercise.name}")
+        println("Type: ${exercise.type}")
+        println("Equipment: ${exercise.equipment}")
+        println("Instructions: ${exercise.instructions}")
+        println("Muscle: ${exercise.muscle}")
+        println("Difficulty: ${exercise.difficulty}")
+
+        //if the exercice isn't in database we add
+       // ExercicesRepository.getExcByProperties(exercise)
+//        {
+//            Toast.makeText(requireContext(), "Exercise inserted", Toast.LENGTH_SHORT).show()
+//        }
+
+        //if is not a progress in current date for logged user we make one
+
+        //insert a excercices_progress
+
+        if (username != null) {
+           ExcProgressRepository.uu(exercise.name,username)
+
+        }
     }
     private fun doShow(){
         val selectedTypeEditText = view?.findViewById<TextInputLayout>(R.id.selected_type)?.editText
@@ -80,6 +128,7 @@ class FindExercicesFragment : Fragment() {
                     responseJsonArray.forEach{
                     val model = ExerciceModel(name = it.name, equipment = it.equipment, instructions = it.instructions,type=it.type, difficulty = it.difficulty, muscle = it.muscle)
                     this.items.add(model)
+                        ExercicesRepository.getExcByProperties(model){}
                 }}
                 adapter.notifyDataSetChanged()
 
@@ -100,14 +149,6 @@ class FindExercicesFragment : Fragment() {
 
     fun setupRecyclerView(){
         val layoutManager = LinearLayoutManager(context)
-//        val exerciceList = listOf(
-//            ExerciceModel(name="name1", equipment = "equipment", instructions = "instruction"),
-//            ExerciceModel(name="name2", equipment = "equipment", instructions = "instruction"),
-//            ExerciceModel(name="name3", equipment = "equipment", instructions = "instruction"),
-//            ExerciceModel(name="name4", equipment = "equipment", instructions = "instruction"),
-//            ExerciceModel(name="name5", equipment = "equipment", instructions = "instruction"),
-//        )
-//        val adapter = ExerciceListAdaptor(exerciceList)
         val rvExercices = view?.findViewById<RecyclerView>(R.id.rv_exercices) ?: return
         rvExercices.apply {
 
