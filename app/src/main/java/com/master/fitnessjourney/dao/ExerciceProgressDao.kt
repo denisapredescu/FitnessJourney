@@ -6,11 +6,14 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.master.fitnessjourney.entities.DifficultyExercicesEnum
+import com.master.fitnessjourney.entities.Exercice
 import com.master.fitnessjourney.entities.ExerciceProgress
 import com.master.fitnessjourney.entities.MuscleExercicesEnum
 import com.master.fitnessjourney.entities.Progress
 import com.master.fitnessjourney.entities.TypeExercicesEnum
 import com.master.fitnessjourney.models.ExerciceInProgress
+import com.master.fitnessjourney.models.ExerciceModel
+import java.util.Date
 
 @Dao
 interface ExerciceProgressDao {
@@ -31,5 +34,15 @@ interface ExerciceProgressDao {
 
     @Update
     fun updateExcProgress(model: ExerciceProgress)
+
+    @Query("SELECT exercices.name, exercices.type, exercices.muscle, exercices.equipment, exercices.difficulty, exercices.instructions" +
+            " FROM exercices" +
+            " JOIN exercices_progesses on (exercices.id == exercices_progesses.exerciceId)" +
+            " JOIN progresses on (exercices_progesses.progressId == progresses.id) " +
+            "WHERE status = 1 AND username = :username AND " +
+            " strftime('%d', datetime(date / 1000, 'unixepoch')) = :day AND" +
+            " strftime('%m',datetime(date / 1000, 'unixepoch')) = :month AND" +
+            " strftime('%Y', datetime(date / 1000, 'unixepoch')) = :year")
+    fun getAllDoneExercicesChoosedDate(day:String,month: String, year: String, username: String): List<ExerciceModel>
 
 }

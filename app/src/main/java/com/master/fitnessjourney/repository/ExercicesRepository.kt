@@ -5,13 +5,17 @@ import com.master.fitnessjourney.entities.Exercice
 import com.master.fitnessjourney.entities.MuscleExercicesEnum
 import com.master.fitnessjourney.entities.TypeExercicesEnum
 import com.master.fitnessjourney.helpers.extensions.logErrorMessage
+import com.master.fitnessjourney.models.ExerciceInProgress
 import com.master.fitnessjourney.models.ExerciceModel
+import com.master.fitnessjourney.tasks.GetAllDoneExercicesChoosedDateTask
 import com.master.fitnessjourney.tasks.GetAllExcByTypeDiffMuscleTask
+import com.master.fitnessjourney.tasks.GetAllExercicesInProgressTask
 import com.master.fitnessjourney.tasks.GetExcByIdTask
 import com.master.fitnessjourney.tasks.GetExcByPropertiesTask
 import com.master.fitnessjourney.tasks.GetExerciceTask
 import com.master.fitnessjourney.tasks.GetIdByNameTask
 import com.master.fitnessjourney.tasks.InsertExerciceTask
+import java.util.Date
 
 object ExercicesRepository {//nu e un best practice...
     fun insertExercice(model: ExerciceModel, onSuccess : () -> Unit){
@@ -52,7 +56,9 @@ object ExercicesRepository {//nu e un best practice...
             "listSucces: ${exercices.map { it.id }}".logErrorMessage()
         }.execute()
     }
-    fun insertAllExercices(list: List<Exercice>){
-
+    fun getExcDoneByDateUsername(day:String,month:String,year:String, username: String, callback: (List<ExerciceModel>) -> Unit){
+        GetAllDoneExercicesChoosedDateTask(day,month,year,username){exerc->
+            callback(exerc)
+        }.execute()
     }
 }
