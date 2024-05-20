@@ -1,12 +1,16 @@
 package com.master.fitnessjourney.repository
 
 import com.master.fitnessjourney.entities.ExerciceProgress
+import com.master.fitnessjourney.models.ExerciceInProgress
+import com.master.fitnessjourney.tasks.DeleteExerciceInProgressTask
+import com.master.fitnessjourney.tasks.GetAllExercicesInProgressTask
 import com.master.fitnessjourney.tasks.GetIdByNameTask
 import com.master.fitnessjourney.tasks.GetIdByUserDateTask
 import com.master.fitnessjourney.tasks.InsertExcProgressTask
 import com.master.fitnessjourney.tasks.InsertExerciceTask
 import com.master.fitnessjourney.tasks.IsProgrExcTask
 import com.master.fitnessjourney.tasks.IsProgressSetTodayUserLoggedTask
+import com.master.fitnessjourney.tasks.UpdateExerciceInProgressTask
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -18,7 +22,26 @@ object ExcProgressRepository {
     fun insertExercProgress(model: ExerciceProgress, onSuccess : () -> Unit){
         InsertExcProgressTask(onSuccess).execute(model)
     }
-
+    fun deleteExerciceInProgress(exercice: ExerciceInProgress, onSuccess: () -> Unit) {
+        val excProgress = ExerciceProgress(
+            progressId = exercice.progressId,
+            exerciceId = exercice.exerciceId,
+            status = false
+        )
+        DeleteExerciceInProgressTask(excProgress) {
+            onSuccess()
+        }.execute()
+    }
+    fun updateExerciceInProgress(exercice: ExerciceInProgress, onSuccess: () -> Unit) {
+        val excProgress = ExerciceProgress(
+            progressId = exercice.progressId,
+            exerciceId = exercice.exerciceId,
+            status = true
+        )
+        UpdateExerciceInProgressTask(excProgress) {
+            onSuccess()
+        }.execute()
+    }
     fun uu(name:String,username:String){
 
 //        GetIdByNameTask(name){
@@ -59,6 +82,12 @@ object ExcProgressRepository {
 
             //"exercice is: $response".logErrorMessage()
 
+        }.execute()
+    }
+
+    fun getExcProgress(username: String,callback: (List<ExerciceInProgress>) -> Unit){
+        GetAllExercicesInProgressTask(username){exerc->
+            callback(exerc)
         }.execute()
     }
 }
