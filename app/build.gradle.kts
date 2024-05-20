@@ -49,7 +49,8 @@ plugins {
     }
 
     dependencies {
-//        implementation(libs.firebase.firestore.ktx)
+implementation(libs.google.material)
+        //        implementation(libs.firebase.firestore.ktx)
         val nav_version = "2.7.7"
         val room_version = "2.6.1"
 
