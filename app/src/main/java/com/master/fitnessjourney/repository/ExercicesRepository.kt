@@ -7,6 +7,7 @@ import com.master.fitnessjourney.entities.TypeExercicesEnum
 import com.master.fitnessjourney.helpers.extensions.logErrorMessage
 import com.master.fitnessjourney.models.ExerciceInProgress
 import com.master.fitnessjourney.models.ExerciceModel
+import com.master.fitnessjourney.tasks.GetAllDoneExercicesByUserTask
 import com.master.fitnessjourney.tasks.GetAllDoneExercicesChoosedDateTask
 import com.master.fitnessjourney.tasks.GetAllExcByTypeDiffMuscleTask
 import com.master.fitnessjourney.tasks.GetAllExercicesInProgressTask
@@ -58,6 +59,12 @@ object ExercicesRepository {//nu e un best practice...
     }
     fun getExcDoneByDateUsername(day:String,month:String,year:String, username: String, callback: (List<ExerciceModel>) -> Unit){
         GetAllDoneExercicesChoosedDateTask(day,month,year,username){exerc->
+            callback(exerc)
+        }.execute()
+    }
+
+    fun getExcDoneByUsername(username: String, callback: (List<ExerciceModel>) -> Unit){
+        GetAllDoneExercicesByUserTask(username){exerc->
             callback(exerc)
         }.execute()
     }

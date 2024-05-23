@@ -80,4 +80,5 @@ implementation(libs.google.material)
 //        implementation(libs.eventbus)
 //                kapt("org.greenrobot:eventbus-annotation-processor:3.0.1")
         implementation("org.greenrobot:eventbus:3.3.1")
+        implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     }

@@ -44,7 +44,7 @@ class InsertExerciceTask(
                 "TRICEPS" -> MuscleExercicesEnum.TRICEPS
                 else -> MuscleExercicesEnum.ABDOMINALS
             }
-            val exerciceDiff = when (exercice.type.toUpperCase()) {
+            val exerciceDiff = when (exercice.difficulty.toUpperCase()) {
                 "BEGINNER" -> DifficultyExercicesEnum.BEGINNER
                 "INTERMEDIATE" -> DifficultyExercicesEnum.INTERMEDIATE
                 "EXPERT" -> DifficultyExercicesEnum.EXPERT
