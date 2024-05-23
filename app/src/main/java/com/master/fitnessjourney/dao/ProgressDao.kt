@@ -19,7 +19,7 @@ public interface ProgressDao {
     @Insert
     fun insertProgress(model: Progress)
 
-    @Query("SELECT COUNT(*) FROM progresses WHERE username = :username AND strftime('%d', datetime(date / 1000, 'unixepoch')) = :day AND strftime('%m',datetime(date / 1000, 'unixepoch')) = :month AND strftime('%Y', datetime(date / 1000, 'unixepoch')) = :year")
+    @Query("SELECT COUNT(*) FROM progresses WHERE username = :username AND strftime('%d', datetime(date / 1000, 'unixepoch','localtime')) = :day AND strftime('%m',datetime(date / 1000, 'unixepoch','localtime')) = :month AND strftime('%Y', datetime(date / 1000, 'unixepoch','localtime')) = :year")
     fun isProgressSetTodayUserLogged(username: String,day: String,month: String, year: String) : Int
 
     @Query("UPDATE exercices_progesses SET status= 1 WHERE exerciceId = :exerciceId AND progressId = :progressId")
@@ -35,9 +35,9 @@ public interface ProgressDao {
     fun getDoneExercicesByDate(chooseDate: Date): List<ExerciceByDateModel>
 
     @Query("SELECT id FROM progresses WHERE username = :username AND" +
-            " strftime('%d', datetime(date / 1000, 'unixepoch')) = :day AND" +
-            " strftime('%m',datetime(date / 1000, 'unixepoch')) = :month AND" +
-            " strftime('%Y', datetime(date / 1000, 'unixepoch')) = :year")
+            " strftime('%d', datetime(date / 1000, 'unixepoch','localtime')) = :day AND" +
+            " strftime('%m',datetime(date / 1000, 'unixepoch','localtime')) = :month AND" +
+            " strftime('%Y', datetime(date / 1000, 'unixepoch','localtime')) = :year")
     fun getIdByUserDate(username: String,day:String,month: String,year: String) :Int
 
 

@@ -40,9 +40,15 @@ interface ExerciceProgressDao {
             " JOIN exercices_progesses on (exercices.id == exercices_progesses.exerciceId)" +
             " JOIN progresses on (exercices_progesses.progressId == progresses.id) " +
             "WHERE status = 1 AND username = :username AND " +
-            " strftime('%d', datetime(date / 1000, 'unixepoch')) = :day AND" +
-            " strftime('%m',datetime(date / 1000, 'unixepoch')) = :month AND" +
-            " strftime('%Y', datetime(date / 1000, 'unixepoch')) = :year")
+            " strftime('%d', datetime(date / 1000, 'unixepoch','localtime')) = :day AND" +
+            " strftime('%m',datetime(date / 1000, 'unixepoch','localtime')) = :month AND" +
+            " strftime('%Y', datetime(date / 1000, 'unixepoch','localtime')) = :year")
     fun getAllDoneExercicesChoosedDate(day:String,month: String, year: String, username: String): List<ExerciceModel>
+    @Query("SELECT exercices.name, exercices.type, exercices.muscle, exercices.equipment, exercices.difficulty, exercices.instructions" +
+            " FROM exercices" +
+            " JOIN exercices_progesses on (exercices.id == exercices_progesses.exerciceId)" +
+            " JOIN progresses on (exercices_progesses.progressId == progresses.id) " +
+            "WHERE status = 1 AND username = :username")
+    fun getAllDoneExercicesByUser(username: String): List<ExerciceModel>
 
 }
