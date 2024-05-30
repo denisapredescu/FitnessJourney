@@ -23,9 +23,9 @@ object ExercicesRepository {//nu e un best practice...
         InsertExerciceTask(onSuccess).execute(model)
     }
 
-    fun getAllExc(){
+    fun getAllExc(callback: (List<Exercice>) -> Unit){
         GetExerciceTask{exercices ->
-            "listSucces: ${exercices.map { it.name }}".logErrorMessage()
+            callback(exercices)
         }.execute()
     }
     fun getExcById(id: Int){

@@ -110,6 +110,7 @@ class StatisticsFragment : Fragment() {
 
                         adapter.notifyDataSetChanged()
                         getBarsChart()
+                        chart.visibility = View.VISIBLE
                     }
 
                 }
