@@ -11,6 +11,8 @@ import com.master.fitnessjourney.entities.ExerciceProgress
 import com.master.fitnessjourney.entities.MuscleExercicesEnum
 import com.master.fitnessjourney.entities.Progress
 import com.master.fitnessjourney.entities.TypeExercicesEnum
+import com.master.fitnessjourney.models.CountDiffExcModel
+import com.master.fitnessjourney.models.CountTypeExcModel
 import com.master.fitnessjourney.models.ExerciceInProgress
 import com.master.fitnessjourney.models.ExerciceModel
 import java.util.Date
@@ -51,4 +53,14 @@ interface ExerciceProgressDao {
             "WHERE status = 1 AND username = :username")
     fun getAllDoneExercicesByUser(username: String): List<ExerciceModel>
 
+
+    @Query("select count(*) 'countExcProgress',type 'typeExc' " +
+            "from exercices_progesses join exercices on (exercices_progesses.exerciceId = exercices.id) " +
+            "group  by type")
+    fun getCountProgressExcGroupType(): List<CountTypeExcModel>
+
+    @Query("select count(*) 'countExcProgress',difficulty " +
+            "from exercices_progesses join exercices on (exercices_progesses.exerciceId = exercices.id) " +
+            "group  by difficulty")
+    fun getCountProgressExcGroupDiff(): List<CountDiffExcModel>
 }

@@ -1,9 +1,15 @@
 package com.master.fitnessjourney.repository
 
+import com.master.fitnessjourney.entities.Exercice
 import com.master.fitnessjourney.entities.ExerciceProgress
+import com.master.fitnessjourney.models.CountDiffExcModel
+import com.master.fitnessjourney.models.CountTypeExcModel
 import com.master.fitnessjourney.models.ExerciceInProgress
 import com.master.fitnessjourney.tasks.DeleteExerciceInProgressTask
 import com.master.fitnessjourney.tasks.GetAllExercicesInProgressTask
+import com.master.fitnessjourney.tasks.GetCountProgressExcGroupDiffTask
+import com.master.fitnessjourney.tasks.GetCountProgressExcGroupTypeTask
+import com.master.fitnessjourney.tasks.GetExerciceTask
 import com.master.fitnessjourney.tasks.GetIdByNameTask
 import com.master.fitnessjourney.tasks.GetIdByUserDateTask
 import com.master.fitnessjourney.tasks.InsertExcProgressTask
@@ -88,6 +94,17 @@ object ExcProgressRepository {
     fun getExcProgress(username: String,callback: (List<ExerciceInProgress>) -> Unit){
         GetAllExercicesInProgressTask(username){exerc->
             callback(exerc)
+        }.execute()
+    }
+    fun getCountExcProgressGroupType(callback: (List<CountTypeExcModel>) -> Unit){
+        GetCountProgressExcGroupTypeTask{exCount ->
+            callback(exCount)
+        }.execute()
+    }
+
+    fun getCountExcProgressGroupDiff(callback: (List<CountDiffExcModel>) -> Unit){
+        GetCountProgressExcGroupDiffTask{exCount ->
+            callback(exCount)
         }.execute()
     }
 }

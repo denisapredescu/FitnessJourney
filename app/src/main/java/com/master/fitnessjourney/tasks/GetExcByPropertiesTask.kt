@@ -49,7 +49,7 @@ class GetExcByPropertiesTask (
         "TRICEPS" -> MuscleExercicesEnum.TRICEPS
         else -> MuscleExercicesEnum.ABDOMINALS
     }
-    val exerciceDiff = when (ex.type.toUpperCase()) {
+    val exerciceDiff = when (ex.difficulty.toUpperCase()) {
         "BEGINNER" -> DifficultyExercicesEnum.BEGINNER
         "INTERMEDIATE" -> DifficultyExercicesEnum.INTERMEDIATE
         "EXPERT" -> DifficultyExercicesEnum.EXPERT
