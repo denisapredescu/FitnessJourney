@@ -70,24 +70,6 @@ class FindExercicesFragment : Fragment() {
     }
     private fun handleItemClick(exercise: ExerciceModel) {
         val username = sharedPreferences.getString("email", null)
-//        println("email: $username")
-        println("Clicked Exercise:")
-        println("Name: ${exercise.name}")
-        println("Type: ${exercise.type}")
-        println("Equipment: ${exercise.equipment}")
-        println("Instructions: ${exercise.instructions}")
-        println("Muscle: ${exercise.muscle}")
-        println("Difficulty: ${exercise.difficulty}")
-
-        //if the exercice isn't in database we add
-       // ExercicesRepository.getExcByProperties(exercise)
-//        {
-//            Toast.makeText(requireContext(), "Exercise inserted", Toast.LENGTH_SHORT).show()
-//        }
-
-        //if is not a progress in current date for logged user we make one
-
-        //insert a excercices_progress
 
         if (username != null) {
            ExcProgressRepository.uu(exercise.name,username)
@@ -131,7 +113,9 @@ class FindExercicesFragment : Fragment() {
                         ExercicesRepository.getExcByProperties(model){}
                 }}
                 adapter.notifyDataSetChanged()
-
+                if(items.isEmpty()){
+                    Toast.makeText(requireContext(), "No data found", Toast.LENGTH_SHORT).show()
+                }
             },
             {
                 "That didn't work!".logErrorMessage()

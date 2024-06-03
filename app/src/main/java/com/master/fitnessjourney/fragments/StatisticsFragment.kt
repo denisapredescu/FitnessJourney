@@ -64,15 +64,6 @@ class StatisticsFragment : Fragment() {
         chart = view?.findViewById(R.id.barChart)!!
         getBarsChart()
         setupRecyclerView()
-
-//        if (username != null) {
-//            ExercicesRepository.getExcDoneByDateUsername("20","05","2024",username) { exercices ->
-//                items.clear()
-//                items.addAll(exercices)
-//                adapter.notifyDataSetChanged()
-//            }
-//        }
-
         val button = view?.findViewById<Button>(R.id.button_select_date)
 
         val setDate = object : DatePickerDialog.OnDateSetListener {
@@ -81,10 +72,6 @@ class StatisticsFragment : Fragment() {
                 calendar.set(Calendar.MONTH, month)
                 calendar.set(Calendar.DAY_OF_MONTH, day)
                 DateUpdate()
-//                beginnerExcDoneNumber = 0
-//                intermediateExcDoneNumber = 0
-//                expertExcDoneNumber = 0
-
                 val dataText = view?.findViewById<TextView>(R.id.tv_date_choosed)?.text
                 if(dataText!=null && username != null) {
                     val parts = dataText.split("/")
@@ -136,12 +123,6 @@ class StatisticsFragment : Fragment() {
         if (textView != null) {
             textView.text = sdf.format(calendar.time)
         }
-//        val sdf = SimpleDateFormat(customFormat, Locale.getDefault())
-//        val textView = view?.findViewById<TextView>(R.id.tv_date_choosed)
-//        if (textView != null) {
-//            textView.text = sdf.format(calendar.time)
-//        }
-
     }
     fun setupRecyclerView(){
         val layoutManager = LinearLayoutManager(context)
@@ -170,7 +151,7 @@ class StatisticsFragment : Fragment() {
 
         // Apply colors to dataset
         dataSet.colors = colors
-        dataSet.valueTextColor = Color.BLACK
+        dataSet.valueTextColor = Color.GRAY
         dataSet.valueTextSize = 11f
         chart.description.isEnabled = false
 
@@ -182,6 +163,8 @@ class StatisticsFragment : Fragment() {
 
         val legend = chart.legend
         legend.isEnabled = true
+        legend.textSize = 16.0F
+        legend.textColor = Color.GRAY
         legend.setCustom(legendEntries)
 
         chart.invalidate() // Refresh the chart

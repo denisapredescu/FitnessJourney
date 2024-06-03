@@ -20,8 +20,6 @@ object ProgressRepository {
                 insertProgress(username,onSuccess)
             }
 
-            //"exercice is: $response".logErrorMessage()
-
         }.execute()
     }
 

@@ -49,19 +49,11 @@ object ExcProgressRepository {
         }.execute()
     }
     fun uu(name:String,username:String){
-
-//        GetIdByNameTask(name){
-//        id1=it
-//        }.execute()
-
         val resExc = GetIdByNameTask(name){}.execute().get()
         val idExc = resExc ?: 0
 
         val resProgr = GetIdByUserDateTask(username){}.execute().get()
         val idProgr = resProgr ?: 0
-//        GetIdByUserDateTask(username){
-//        id2=it
-//        }.execute()
         val excProgress = ExerciceProgress(
             progressId = idProgr,
             exerciceId = idExc,
@@ -85,8 +77,6 @@ object ExcProgressRepository {
                 )
                 insertExercProgress(excProgress){}
             }
-
-            //"exercice is: $response".logErrorMessage()
 
         }.execute()
     }

@@ -14,10 +14,6 @@ class IsProgressSetTodayUserLoggedTask (
 
     @Deprecated("Deprecated in Java")
     override fun doInBackground(vararg params: Unit): Boolean {
-//        val customFormat = "dd/MM/yyyy"
-//        val sdf = SimpleDateFormat(customFormat, Locale.getDefault())
-//        sdf.timeZone = TimeZone.getTimeZone("Europe/Bucharest")
-//        val currentDate = sdf.format(Calendar.getInstance().time)
         val date = Date()
         val currentDate = formatDate(date)
         val componentsDate = currentDate.split("/")

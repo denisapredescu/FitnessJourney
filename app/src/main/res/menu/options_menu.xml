@@ -3,12 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/option_menu_profile"
-        android:title="@string/options_profile"
-        android:orderInCategory="1"
-        android:visible="true"
-        app:showAsAction="never"/>
-    <item
         android:id="@+id/option_menu_exit"
         android:title="@string/options_logout"
         android:orderInCategory="2"

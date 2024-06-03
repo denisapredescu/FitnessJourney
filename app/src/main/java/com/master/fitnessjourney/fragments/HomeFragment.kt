@@ -153,7 +153,7 @@ class HomeFragment : Fragment() {
 
         dataSet.colors = colors
         dataSet.valueTextColor = Color.GRAY
-        dataSet.valueTextSize = 11f
+        dataSet.valueTextSize = 13f
         chart.description.isEnabled = false
 
         val legendEntries = mutableListOf<LegendEntry>(
@@ -169,8 +169,9 @@ class HomeFragment : Fragment() {
         val legend = chart.legend
         legend.textColor = Color.GRAY
         legend.isEnabled = true
+        legend.textSize = 13.0F
         legend.setCustom(legendEntries)
-        legend.verticalAlignment = Legend.LegendVerticalAlignment.CENTER
+        legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
         legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
         legend.orientation = Legend.LegendOrientation.VERTICAL
         legend.setDrawInside(false)
@@ -195,7 +196,7 @@ class HomeFragment : Fragment() {
 
         dataSetPie.colors = colors
         dataSetPie.valueTextColor = Color.WHITE
-        dataSetPie.valueTextSize = 11f
+        dataSetPie.valueTextSize = 13f
         chartPie.description.isEnabled = false
 
         val legendEntries = mutableListOf<LegendEntry>(
@@ -207,8 +208,12 @@ class HomeFragment : Fragment() {
         val legend = chartPie.legend
         legend.textColor = Color.GRAY
         legend.isEnabled = true
+        legend.textSize = 13.0F
         legend.setCustom(legendEntries)
-        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
+
+        legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
+        legend.orientation = Legend.LegendOrientation.VERTICAL
         chartPie.invalidate() // Refresh the chart
     }
     private fun handleThemeSwitch(isChecked: Boolean) {

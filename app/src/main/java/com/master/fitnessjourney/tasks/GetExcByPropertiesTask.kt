@@ -11,13 +11,7 @@ import com.master.fitnessjourney.models.ExerciceModel
 class GetExcByPropertiesTask (
     val ex: ExerciceModel,
     val onSuccess: (Boolean) -> Unit): AsyncTask<Unit, Unit, Boolean>() {
-//    @Deprecated("Deprecated in Java")
-//    override fun doInBackground(vararg params: Unit): Boolean? {
-//        return ApplicationController.instance?.appDatabase?.
-//        exerciceDao?.getExcByProperties(
-//                ex.name,ex.type,ex.muscle,ex.equipment,ex.difficulty,ex.instructions)
-//
-//    }
+
     @Deprecated("Deprecated in Java")
     override fun doInBackground(vararg params: Unit): Boolean {
     val exerciceType = when (ex.type.toUpperCase()) {

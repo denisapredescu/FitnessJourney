@@ -42,8 +42,6 @@ object ExercicesRepository {//nu e un best practice...
                 insertExercice(ex,onSuccess)
             }
 
-                //"exercice is: $response".logErrorMessage()
-
         }.execute()
     }
 
