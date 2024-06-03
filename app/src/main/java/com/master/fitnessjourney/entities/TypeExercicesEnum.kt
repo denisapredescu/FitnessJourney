@@ -8,11 +8,4 @@ enum class TypeExercicesEnum {
     STRENGTH,
     STRETCHING,
     STRONGMAN
-//    cardio,
-//    olympic_weightlifting,
-//    plyometrics,
-//    powerlifting,
-//    strength,
-//    stretching,
-//    strongman
 }

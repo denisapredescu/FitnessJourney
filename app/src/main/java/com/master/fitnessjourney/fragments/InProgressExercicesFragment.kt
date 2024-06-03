@@ -8,11 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.switchmaterial.SwitchMaterial
 import com.master.fitnessjourney.R
 import com.master.fitnessjourney.adapters.ExerciceListAdaptor
 import com.master.fitnessjourney.adapters.ExerciceProgressAdaptor
+import com.master.fitnessjourney.helpers.Theme
 import com.master.fitnessjourney.models.ExerciceInProgress
 import com.master.fitnessjourney.repository.ExcProgressRepository
 import java.util.prefs.Preferences
@@ -36,17 +39,19 @@ class InProgressExercicesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val username = sharedPreferences.getString("email",null)
-       // val deleteButton = view.findViewById<Button>(R.id.button_delete)
+
         setupRecyclerView()
         if(username!=null)
             {showData(username)}
-      //  deleteButton.setOnClickListener { deleteItem() }
     }
     private fun showData(username: String) {
         ExcProgressRepository.getExcProgress(username) { exercices ->
             items.clear()
             items.addAll(exercices)
             adapter.notifyDataSetChanged()
+            if(items.isEmpty()){
+                Toast.makeText(requireContext(), "No data found", Toast.LENGTH_SHORT).show()
+            }
         }
     }
     fun setupRecyclerView(){
@@ -71,5 +76,4 @@ class InProgressExercicesFragment : Fragment() {
         }
         sharedPreferences.getString("email",null)?.let { showData(it) }
     }
-
 }

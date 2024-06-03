@@ -25,7 +25,7 @@ interface ExerciceProgressDao {
     @Query("SELECT COUNT(*) FROM exercices_progesses WHERE progressId = :progressId and exerciceId = :exerciceId")
     fun isProgrExc(progressId:Int,exerciceId:Int): Int
 
-    @Query("SELECT exercices.id 'exerciceId', progresses.id 'progressId',exercices.name FROM exercices " +
+    @Query("SELECT exercices.id 'exerciceId', progresses.id 'progressId',exercices.name, exercices.instructions, exercices.equipment FROM exercices " +
             "join exercices_progesses on(exercices.id == exercices_progesses.exerciceId)" +
             "join progresses on(exercices_progesses.progressId == progresses.id)" +
             " WHERE status = 0 AND username = :username")

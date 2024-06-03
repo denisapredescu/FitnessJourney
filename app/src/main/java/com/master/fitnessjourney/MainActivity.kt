@@ -112,10 +112,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.option_menu_profile -> {
-                navController.navigate(R.id.navigation_profile)
-                true
-            }
             R.id.option_menu_exit -> {
                 sharedPreferences.edit().putString("email", "").apply()
                 EventBus.getDefault().post(LogInOutEvent(isLoggedIn = false))

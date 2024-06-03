@@ -33,16 +33,21 @@ class ExerciceProgressAdaptor(
 
     inner class ExerciceProgressViewHolder(view: View): RecyclerView.ViewHolder(view){
         private val nameTextView: TextView
+        private val equipmentTextView: TextView
+        private val instructionsTextView: TextView
         private val deleteButton: Button
         private val doneButton: Button
         init{
             nameTextView = view.findViewById(R.id.tv_name_exc)
+            equipmentTextView = view.findViewById(R.id.tv_equipment_exc)
+            instructionsTextView = view.findViewById(R.id.tv_instructions_exc)
             deleteButton = view.findViewById(R.id.button_delete)
             doneButton = view.findViewById(R.id.button_done)
         }
         fun onBind(exerciceProgress: ExerciceInProgress){
             nameTextView.text = exerciceProgress.name
-
+            equipmentTextView.text = exerciceProgress.equipment
+            instructionsTextView.text = exerciceProgress.instructions
             deleteButton.setOnClickListener{
                 deleteClick(exerciceProgress)
             }

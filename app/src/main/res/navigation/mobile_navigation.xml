@@ -44,10 +44,4 @@
         android:name="com.master.fitnessjourney.fragments.StatisticsFragment"
         android:label="@string/navigation_statistics"
         tools:layout="@layout/fragment_statistics" />
-
-    <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.master.fitnessjourney.fragments.ProfileFragment"
-        android:label="@string/options_profile"
-        tools:layout="@layout/fragment_profile" />
 </navigation>

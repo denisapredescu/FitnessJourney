@@ -209,21 +209,8 @@ class RegisterFragment : Fragment() {
                 nameObject.put("firstname", firstname)
                 nameObject.put("lastname", lastname)
 
-//                val addressObject = JSONObject()
-//                addressObject.put("city", "kilcoole")
-//                addressObject.put("street", "7835 new road")
-//                addressObject.put("number", 3)
-//                addressObject.put("zipcode", "12926-3874")
-//
-//                val geolocationObject = JSONObject()
-//                geolocationObject.put("lat", "-37.3159")
-//                geolocationObject.put("long", "81.1496")
-//
-//                addressObject.put("geolocation", geolocationObject)
-
                 // Put the nested JSON objects into the params map as strings
                 params["name"] = nameObject.toString()
-//                params["address"] = addressObject.toString()
 
                 return params
             }

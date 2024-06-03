@@ -7,8 +7,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.FindExercicesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -30,7 +28,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Type"
+            android:hint="Type: cardio/strength/strongman..."
             android:padding="@dimen/default_padding"
             app:endIconMode="clear_text"
             app:helperTextTextColor="@color/helper_text_color">
@@ -54,7 +52,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Muscle"
+                android:hint="Muscle: abdominals/triceps/chest..."
                 android:paddingStart="10dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/default_margin"
-            android:text="Choose Difficulty Level" />
+            android:text="Difficulty Level:" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -128,6 +126,7 @@
         android:id="@+id/rv_exercices"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="30dp"
         android:clipToPadding="false"
         android:padding="16dp"
 

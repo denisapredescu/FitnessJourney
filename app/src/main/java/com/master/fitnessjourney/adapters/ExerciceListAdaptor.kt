@@ -18,14 +18,12 @@ class ExerciceListAdaptor(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciceViewHolder {
         val cellView = LayoutInflater.from(parent.context).inflate(R.layout.item_exercice_cell, parent, false)
-        //"onCreateViewHolder".logErrorMessage("ExerciceAdapter")
         return ExerciceViewHolder(cellView)
     }
 
     override fun onBindViewHolder(holder: ExerciceViewHolder, position: Int) {
         val exercice = list.getOrNull(position)?:return //if is null then return
         holder.onBind(exercice, itemChoose)
-        //"onBindViewHolder; position=$position".logErrorMessage("ExerciceAdapter")
     }
 
     inner class ExerciceViewHolder(view: View) : RecyclerView.ViewHolder(view){
@@ -50,7 +48,7 @@ class ExerciceListAdaptor(
                    ){
             nameTextView.text = exercice.name
             typeTextView.text = exercice.type
-            equipmentTextView.text = exercice.equipment
+            equipmentTextView.text =exercice.equipment
             instructionTextView.text = exercice.instructions
             muscleTextView.text = exercice.muscle
             difficultyTextView.text = exercice.difficulty
